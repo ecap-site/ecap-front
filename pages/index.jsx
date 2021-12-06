@@ -120,7 +120,7 @@ export default function Index(courses, erro) {
     if (erro == true || courses.courses.length == 0) {
       setShowingError(true);
     }
-  });
+  }, [erro, courses.courses.length]);
 
   return (
     <div>
@@ -158,7 +158,7 @@ export default function Index(courses, erro) {
             </p>
           </Transition.Root>
           {courses.courses.map((item) => (
-            <div className="pb-8 bg-gray-100 md:mx-32">
+            <div className="pb-8 bg-gray-100 md:mx-32" key={item.id}>
               <main className="mt-10 container">
                 <div className="bg-white shadow overflow-hidden sm:rounded-lg">
                   <div className="px-4 py-10 border-b border-gray-200 sm:px-6">
