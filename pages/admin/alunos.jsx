@@ -8,7 +8,7 @@ import {
   MailIcon
 } from "@heroicons/react/outline";
 import { useForm } from "react-hook-form";
-import { Image } from "next/image";
+import  Image  from "next/image";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import axios from "axios";
@@ -77,7 +77,7 @@ const Nav = () => {
                       <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                         <span className="sr-only">Open user menu</span>
                         <p className="text-white mr-4">Olá {session.user.name}!</p>
-                        <Image className="h-8 w-8 rounded-full" src={session.user.image} alt={session.user.name} />
+                        <Image className="h-8 w-8 rounded-full" src={session.user.image} alt={session.user.name} height={46} width={46} />
                       </Menu.Button>
                     </div>
                     <Transition
@@ -147,7 +147,7 @@ const Nav = () => {
             <div className="pt-4 pb-3 border-t border-gray-700">
               <div className="flex items-center px-5">
               <div className="flex-shrink-0">
-                      <Image className="h-10 w-10 rounded-full" src={session.user.image} alt="" />
+                    <Image className="h-8 w-8 rounded-full" src={session.user.image} alt={session.user.name} height={46} width={46} />
                 </div>
                 <div className="ml-3">
                   <div className="text-base font-medium leading-none text-white">
@@ -303,7 +303,7 @@ export default function Admin(courses, erro) {
 
 Admin.getInitialProps = async function () {
   try {
-    const getCourses = await axios.get("http://localhost:8087/cursos")
+    const getCourses = await axios.get(`${process.env.API_URL}/cursos`);
     return {
       courses: getCourses.data
     }

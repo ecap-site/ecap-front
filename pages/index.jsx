@@ -203,11 +203,13 @@ export default function Index(courses, erro) {
 
 Index.getInitialProps = async function () {
   try {
-    const getCourses = await axios.get("http://localhost:8087/cursos");
+    const getCourses = await axios.get(`${process.env.API_URL}/cursos`);
+    console.log("we reached the server")
     return {
       courses: getCourses.data,
     };
   } catch (e) {
+    console.log("we have an error")
     return {
       courses: [],
       erro: true,
