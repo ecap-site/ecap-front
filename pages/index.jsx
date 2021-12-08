@@ -7,11 +7,13 @@ import ifc from "../public/ifc.png";
 import superacao from "../public/superacao.png";
 import ecap from "../public/ecap.png";
 import prefeituraMunicipal from "../public/araquari.png";
+import ecap_header from "../public/ecap-header.png";
 
 var Header = () => {
   return (
     <div className="bg-gray-100 overflow-hidden">
       <div className="mx-auto">
+      <Image src={ecap_header} alt="IFC" layout="responsive" />
         <div className="mx-auto pb-8 bg-gray-100">
           <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
             <div className="sm:text-center lg:text-left">
