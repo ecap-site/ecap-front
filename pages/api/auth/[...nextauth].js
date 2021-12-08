@@ -8,6 +8,7 @@ export default NextAuth({
         clientSecret: process.env.GOOGLE_CLIENT_SECRET
     })
   ],
+  secret: process.env.SECRET,
   callbacks: {
     async jwt({ token, account }) {
       // Persist the OAuth access_token to the token right after signin
