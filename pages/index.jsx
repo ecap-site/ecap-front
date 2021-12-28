@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Disclosure, Menu, Transition, Dialog } from "@headlessui/react";
+import Link from "next/link"; 
 import axios from "axios";
 // ----------------------------------------------------------------------------- //
 
@@ -9,54 +10,11 @@ import ifc from "../public/ifc.png";
 import superacao from "../public/superacao.png";
 import ecap from "../public/ecap.png";
 import prefeituraMunicipal from "../public/araquari.png";
-import ecap_header from "../public/ecap-header.png";
 
 // ----------------------------------------------------------------------------- //
 
-import NavbarHome from "./home/navbar";
+import { Header } from "./globalComponents/Header";
 
-
-var Header = () => {
-  return (
-    <div className="bg-gray-100 overflow-hidden">
-      <div className="mx-auto">
-      <Image src={ecap_header} alt="IFC" layout="responsive" />
-      <NavbarHome />
-        <div className="mx-auto pb-8 bg-gray-100">
-          <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
-            <div className="sm:text-center lg:text-left">
-              <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-                <span className="block xl:inline">
-                  Ecapacitação, cursos para enriquecer seu{" "}
-                </span>{" "}
-                <span className="block text-indigo-600 xl:inline">
-                  conhecimento
-                </span>
-              </h1>
-
-              <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-                lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
-                fugiat aliqua.
-              </p>
-
-              <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                <div className="rounded-md shadow invisible sm:invisible md:visible lg:visible">
-                  <a
-                    href="#cursos"
-                    className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
-                  >
-                    Ver cursos
-                  </a>
-                </div>
-              </div>
-            </div>
-          </main>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 var Footer = () => {
   return (
@@ -185,12 +143,15 @@ export default function Index(courses, erro) {
 
                     <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                       <div className="rounded-md shadow">
-                        <a
-                          href={item.inviteLink}
+                        
+                        <Link
+                          href={"cursos/" + item.id}
                           className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
                         >
-                          Ver curso
-                        </a>
+                          <a className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
+                            Inscrever-se
+                          </a>
+                        </Link>
                       </div>
                     </div>
                   </div>
