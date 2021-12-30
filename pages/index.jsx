@@ -4,81 +4,10 @@ import Link from "next/link";
 import axios from "axios";
 // ----------------------------------------------------------------------------- //
 
-import "../styles/index.module.css";
-import Image from "next/image";
-import ifc from "../public/ifc.png";
-import superacao from "../public/superacao.png";
-import ecap from "../public/ecap.png";
-import prefeituraMunicipal from "../public/araquari.png";
+import Header from "./globalComponents/Header";
+import Footer from "./globalComponents/Footer";
 
 // ----------------------------------------------------------------------------- //
-
-import Header from "./globalComponents/Header";
-
-
-var Footer = () => {
-  return (
-    <footer className="bg-gray-900">
-      <div className="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:px-8 lg:py-16">
-        <div className="pb-10 xl:grid xl:grid-cols-3 xl:gap-8">
-          <div className="xl:col-span-1">
-            <h2 className="text-sm leading-5 font-semibold tracking-wider text-gray-400 uppercase">
-              Ecapacitação 2021 V: 0.1 (beta)
-            </h2>
-          </div>
-        </div>
-        <div className="mt-6">
-          <div className="flex flex-col sm:flex-row justify-center items-center">
-            <div className="">
-              <a
-                href="#"
-                className="h-24 w-24 inline-flex items-center justify-center md:w-32 md:h-32"
-              >
-                <div className="mb-16 h-24 w-24 block md:w-32 md:h-32 ">
-                  <Image src={ifc} alt="IFC" layout="responsive" />
-                </div>
-              </a>
-            </div>
-            <div className="md:ml-32">
-              <a
-                href="#"
-                className="h-24 w-24 inline-flex items-center justify-center md:w-32 md:h-32"
-              >
-                <div className="h-24 w-24 block md:w-32 md:h-32">
-                  <Image src={ecap} alt="IFC" layout="responsive" />
-                </div>
-              </a>
-            </div>
-            <div className="md:ml-32">
-              <a
-                href="#"
-                className="h-24 w-24 inline-flex items-center justify-center md:w-32 md:h-32"
-              >
-                <div className="h-24 w-24 block md:w-32 md:h-32">
-                  <Image src={superacao} alt="IFC" layout="responsive" />
-                </div>
-              </a>
-            </div>
-            <div className="md:ml-32">
-              <a
-                href="#"
-                className="h-24 w-24 inline-flex items-center justify-center md:w-32 md:h-32"
-              >
-                <div className="h-24 w-24 block md:w-32 md:h-32">
-                  <Image
-                    src={prefeituraMunicipal}
-                    alt="IFC"
-                    layout="responsive"
-                  />
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-};
 
 export default function Index(courses, erro) {
 
@@ -89,6 +18,8 @@ export default function Index(courses, erro) {
       setShowingError(true);
     }
   }, [erro, courses.courses.length]);
+
+  console.log(courses.courses)
 
   return (
     <div>
@@ -132,12 +63,29 @@ export default function Index(courses, erro) {
                   <div className="px-4 py-10 border-b border-gray-200 sm:px-6">
                     <div className="-ml-4 -mt-4 flex items-center justify-between flex-wrap sm:flex-no-wrap">
                       <div className="ml-4 mt-4">
+
                         <h3 className="text-lg leading-6 font-medium text-gray-900">
                           {item.title}
                         </h3>
+
                         <p className="mt-1 text-base text-gray-500">
                           {item.desc}
                         </p>
+
+                        {item.isPublic == false ? (
+                          <p className="mt-1 text-base text-gray-500">
+                            <span className="text-red-500">
+                              Requer aprovação da inscrição.
+                            </span>
+                          </p>
+                        ) : (
+                          <p className="mt-1 text-base text-gray-500">
+                            <span className="text-green-600">
+                              Acesso aberto
+                            </span>
+                          </p>
+                        )}
+
                       </div>
                     </div>
 

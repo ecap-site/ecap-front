@@ -8,12 +8,22 @@ import {
   ChevronRightIcon,
   ExclamationIcon,
   CheckIcon,
+  DocumentAddIcon,
+  DeleteIcon
 } from "@heroicons/react/outline";
 import { useSession, signOut } from "next-auth/react";
 import Router, {useRouter} from "next/router";
 import axios from "axios";
 import Image from "next/image";
 
+
+const IconRight = () => {
+  return (
+    <div className="flex items-center">
+      <ChevronRightIcon />
+    </div>
+  );
+}
 
 
 const navigation = [
@@ -30,6 +40,23 @@ function classNames(...classes) {
 
 
 const CreateCourse = function () {
+
+  const [documents, setDocuments] = useState([]);
+  const [document, setDocument] = useState("");
+  const [docType, setDocType] = useState("");
+
+  const handleDocType = (e) => {
+    setDocType(e.target.value);
+  }
+  const handleDocInput = (e) => {
+    setDocument(e.target.value)
+  }
+
+
+  const resetDocInput = () => {
+    setDocument("")
+    setDocType("")
+  }
 
   const teste = async event => {
     event.preventDefault()
@@ -50,7 +77,22 @@ const CreateCourse = function () {
       EndDate: event.target.elements.endDate.value,
     }
 
-    axios.post(`${process.env.API_URL}/createCourse`, course)
+    const inscriptionDeadlines = {
+      init: courseDetails.InitDate,
+      end: courseDetails.EndDate
+    }
+
+    const inscriptionDocs = documents
+
+
+    
+    const finalCourse = {
+      course: course,
+      documents: inscriptionDocs,
+      deadlines: inscriptionDeadlines
+    }
+
+    axios.post(`${process.env.API_URL}/createCourse`, finalCourse)
 
 
     function reset(){
@@ -62,6 +104,7 @@ const CreateCourse = function () {
     event.target.elements.endDate.value = ""
     }
 
+    
     
     reset()
   }
@@ -227,35 +270,99 @@ const CreateCourse = function () {
                       </p>
                     </div>
                     </div>
-
-                    <div>
+                  </div>
+                  <hr/>
+                   {/* form for required documents */}
+                  <div>
                     <label
-                      htmlFor="endDate"
-                      className="mt-5 block text-sm font-medium text-gray-700"
+                      htmlFor="documents"
+                      className="block text-sm font-medium text-gray-700"
                     >
-                      Data de início do curso: 
+                      Documentos necessários para inscrição:
                     </label>
                     <div className="mt-1">
-                      <input
-                        type="datetime-local"
-                        id="endDate"
-                        name="endDate"
-                        className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
-                        defaultValue={""}
-                      />
-                      <p className="mt-2 text-sm text-gray-500">
-                      Utilize esta data para definir a data de início do curso. (Quando serão disponibilizados os conteúdos alunos)
-                      </p>
-                    </div>
-                    </div>
-                    
+                      {/*input with a button that will create a list of documents */}
+                      <div className="flex items-center">
+                      
+                        <input
+                          type="text"
+                          id="documentsInput"
+                          name="documentsInput"
+                          className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
+                          placeholder="Documentos necessários"
+                          value={document}
+                          onChange={handleDocInput}
+                        />
 
-                    
+                        {/* select for doc type, image or document */}
+                        <select
+                          id="docType"
+                          name="docType"
+                          className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
+                          placeholder="tipo"
+                          required
+                          value={docType}
+                          onChange={handleDocType}
+                          
+                        >
+                          <option selected readOnly key="0">
+                            Tipo de documento
+                          </option>
+                          <option value="Imagem" key="1">
+                            Imagem
+                          </option>
+                          <option value="Texto" key="2">
+                            Texto
+                          </option>
+                        </select>
+                        
+                        <button
+                          type="button"
+                          className="ml-2 p-1 border border-gray-300 rounded-md text-sm"
+                          onClick={() => {
+                            setDocument(document);                            
+                            if(docType === ""){
+                              alert("Selecione o tipo de documento");
+                            }
+                            else{
+                            setDocuments(documents.concat({document, docType}));
+                            
+                            resetDocInput()
+                            }
+                          }
+                        }
+                          >
+                          <DocumentAddIcon className="h-6 w-6"/>
+                        </button>
+                        
+                      </div>
+
+                        {/* list of documents, below the input */}
+                        <div className="box-border bg-gray-200 text-center">
+                        <ul className="mt-2 text-center">
+                          {/* on click at item, remove it */}
+                          {documents.map((doc, index) => (
+                            <li key={index} className="list-item mt-2 text-green-600 hover:text-red-400"
+                              onClick={() => {
+                                setDocuments(documents.filter((_, i) => i !== index));   
+                              }}
+                            >
+                              {`${doc.document} || ${doc.docType}`}
+                            </li>
+                          ))}
+                        </ul>
+                       </div>
+
+                    </div>
+                    <p className="mt-2 text-sm text-gray-500">
+                      No máximo 300 caracteres por documento, 20 documentos no máximo.
+                    </p>
+                    <p className="mt-2 text-sm text-gray-500">
+                      Se nenhum documento for necessário, deixe o campo em branco.
+                    </p>
                   </div>
 
                   <hr/>
-
-
                   <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                     <button
                       type="submit"
