@@ -15,6 +15,9 @@ import {
   ViewGridIcon,
   XIcon,
 } from '@heroicons/react/outline'
+
+import Link from "next/link";
+
 import { ChevronDownIcon } from '@heroicons/react/solid'
 
 import Image from 'next/image'
@@ -53,23 +56,20 @@ export default function NavbarHome() {
           </div>
           <Popover.Group as="nav" className="hidden md:flex space-x-10">
 
-            <a href="/" className="text-base font-medium text-gray-500 hover:text-gray-900">
-              Início
-            </a>
-            <a href="#" className="text-base font-medium text-gray-500 hover:text-gray-900">
-              Certificados
-            </a>
+            <Link href="/">
+              <a className="text-base font-medium text-gray-500 hover:text-gray-900">Início</a>
+            </Link>
+            <Link href="/">
+              <a className="text-base font-medium text-gray-500 hover:text-gray-900">Certificados</a>
+            </Link>
           </Popover.Group>
           <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-            <a href="#" className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
-              Entrar
-            </a>
-            <a
-              href="#"
-              className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-            >
-                Criar conta
-            </a>
+            <Link href="#" >
+              <a className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">Entrar</a>
+            </Link>
+            <Link href="#" >
+            <a className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">Criar conta</a>
+            </Link>
           </div>
         </div>
       </div>
@@ -99,14 +99,15 @@ export default function NavbarHome() {
               <div className="mt-6">
                 <nav className="grid gap-y-8">
                   {solutions.map((item) => (
-                    <a
+                    <Link
                       key={item.name}
                       href={item.href}
-                      className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
                     >
+                      <a className="m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
                       <item.icon className="flex-shrink-0 h-6 w-6 text-indigo-600" aria-hidden="true" />
                       <span className="ml-3 text-base font-medium text-gray-900">{item.name}</span>
-                    </a>
+                      </a>
+                    </Link>
                   ))}
                 </nav>
               </div>

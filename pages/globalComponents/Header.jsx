@@ -2,7 +2,7 @@ import Image from "next/image";
 import ecap_header from "../../public/ecap-header.png";
 import NavbarHome from "../home/navbar";
 
-export var Header = () => {
+const Header = () =>{
   return (
     <div className="bg-gray-100 overflow-hidden">
       <div className="mx-auto">
@@ -14,3 +14,5 @@ export var Header = () => {
     </div>
   );
 };
+
+export default Header;

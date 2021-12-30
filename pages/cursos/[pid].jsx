@@ -6,7 +6,7 @@ import Link from "next/link";
 
 // ----------------------------------------------------------------------------------------------  //
 
-import { Header } from '../globalComponents/Header'
+import  Header  from '../globalComponents/Header'
 import { CodeIcon } from '@heroicons/react/solid';
 
 const Course = () => {

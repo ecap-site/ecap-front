@@ -13,7 +13,7 @@ import prefeituraMunicipal from "../public/araquari.png";
 
 // ----------------------------------------------------------------------------- //
 
-import { Header } from "./globalComponents/Header";
+import Header from "./globalComponents/Header";
 
 
 var Footer = () => {
